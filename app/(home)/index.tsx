@@ -23,7 +23,7 @@ export default function HomeScreen() {
           style: "destructive",
           onPress: async () => {
             try {
-              // 🔥 Eliminar token guardado
+              //  Eliminar token guardado
               await AsyncStorage.removeItem("token");
 
               // Redirigir al login

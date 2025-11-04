@@ -105,9 +105,7 @@ export default function LoginForm({ onLoginSuccess }: LoginFormProps) {
         )}
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.link}>
-        <Text style={styles.linkText}>¿Olvidaste tu contraseña?</Text>
-      </TouchableOpacity>
+      
 
       <TouchableOpacity style={styles.link}>
         <Text style={styles.linkText}>¿No tienes cuenta? Registrarse</Text>
