@@ -1,16 +1,17 @@
 // app/(auth)/login/LoginForm.tsx
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useState } from "react";
 import {
-  View,
+  ActivityIndicator,
+  Alert,
+  Image,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  ActivityIndicator,
-  StyleSheet,
-  Image,
-  Alert,
+  View,
 } from "react-native";
-import { login } from "./authService";
+import { login } from "../../../services/authService";
 
 interface Props {
   onLoginSuccess: () => void;
@@ -31,11 +32,13 @@ export default function LoginForm({ onLoginSuccess }: Props) {
     try {
       const { access_token, usuario } = await login(correo, contraseña);
 
-      // Guardar en almacenamiento local
-      // (Puedes usar AsyncStorage si deseas persistencia real)
+      // 🔥 Guardar el token en almacenamiento local
+      await AsyncStorage.setItem("token", access_token);
+
       console.log("Usuario logueado:", usuario);
       Alert.alert("Éxito", "Inicio de sesión correcto ✅");
 
+      // Redirigir al Home
       onLoginSuccess();
     } catch (error: any) {
       Alert.alert("Error", error.message || "Credenciales incorrectas");
@@ -66,7 +69,11 @@ export default function LoginForm({ onLoginSuccess }: Props) {
         onChangeText={setContraseña}
       />
 
-      <TouchableOpacity style={styles.button} onPress={handleLogin} disabled={loading}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={handleLogin}
+        disabled={loading}
+      >
         {loading ? (
           <ActivityIndicator color="#fff" />
         ) : (
