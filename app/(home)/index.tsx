@@ -45,13 +45,14 @@ export default function HomeScreen() {
         <Text style={styles.logoutText}>⟵ Salir</Text>
       </TouchableOpacity>
 
-      <Text style={styles.title}>🏠 Bienvenido al Home</Text>
+      <Text style={styles.title}>🏠 Bienvenido</Text>
 
       <View style={styles.cardContainer}>
-        <TouchableOpacity style={styles.card}>
-          <Text style={styles.cardTitle}>👤 Perfil</Text>
-          <Text style={styles.cardDesc}>Ver y editar tus datos personales</Text>
-        </TouchableOpacity>
+       <TouchableOpacity style={styles.card} onPress={() => router.push("/(home)/Perfil")}>
+  <Text style={styles.cardTitle}>👤 Perfil</Text>
+  <Text style={styles.cardDesc}>Ver y editar tus datos personales</Text>
+</TouchableOpacity>
+
 
         <TouchableOpacity style={styles.card}>
           <Text style={styles.cardTitle}>📦 Equipos Cargados</Text>

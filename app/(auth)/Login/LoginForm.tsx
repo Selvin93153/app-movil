@@ -1,5 +1,6 @@
 // app/(auth)/login/LoginForm.tsx
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
   ActivityIndicator,
@@ -13,11 +14,8 @@ import {
 } from "react-native";
 import { login } from "../../../services/authService";
 
-interface Props {
-  onLoginSuccess: () => void;
-}
-
-export default function LoginForm({ onLoginSuccess }: Props) {
+export default function LoginForm() {
+  const router = useRouter();
   const [correo, setCorreo] = useState("");
   const [contraseña, setContraseña] = useState("");
   const [loading, setLoading] = useState(false);
@@ -32,14 +30,15 @@ export default function LoginForm({ onLoginSuccess }: Props) {
     try {
       const { access_token, usuario } = await login(correo, contraseña);
 
-      // 🔥 Guardar el token en almacenamiento local
+      // 🔥 Guardar el token y usuario en AsyncStorage
       await AsyncStorage.setItem("token", access_token);
+      await AsyncStorage.setItem("usuario", JSON.stringify(usuario));
 
       console.log("Usuario logueado:", usuario);
       Alert.alert("Éxito", "Inicio de sesión correcto ✅");
 
-      // Redirigir al Home
-      onLoginSuccess();
+      // Redirigir a la HomeScreen dentro de (home)
+      router.replace("../../(home)/");
     } catch (error: any) {
       Alert.alert("Error", error.message || "Credenciales incorrectas");
     } finally {
