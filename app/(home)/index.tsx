@@ -61,13 +61,21 @@ export default function HomeScreen() {
   <Text style={styles.cardDesc}>Consulta los equipos registrados</Text>
 </TouchableOpacity>
 
-
         <TouchableOpacity
   style={styles.card}
   onPress={() => router.push("/(home)/PrestamosEnUso")}
 >
           <Text style={styles.cardTitle}>🔧 Equipo Prestado</Text>
           <Text style={styles.cardDesc}>Revisa tus equipos en préstamo</Text>
+        </TouchableOpacity>
+
+
+                <TouchableOpacity
+  style={styles.card}
+  onPress={() => router.push("/(home)/Reportes")}
+>
+          <Text style={styles.cardTitle}> Reportes</Text>
+          <Text style={styles.cardDesc}>Publica algun error o percanse </Text>
         </TouchableOpacity>
       </View>
     </View>
