@@ -1,4 +1,5 @@
 // app/(auth)/login/LoginForm.tsx
+import { Ionicons } from "@expo/vector-icons"; // Iconos de ojo
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
@@ -14,11 +15,17 @@ import {
 } from "react-native";
 import { login } from "../../../services/authService";
 
-export default function LoginForm() {
+// Tipamos la prop onLoginSuccess
+type LoginFormProps = {
+  onLoginSuccess?: () => void; // opcional, para que no rompa si no se pasa
+};
+
+export default function LoginForm({ onLoginSuccess }: LoginFormProps) {
   const router = useRouter();
   const [correo, setCorreo] = useState("");
   const [contraseña, setContraseña] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // estado para mostrar contraseña
 
   const handleLogin = async () => {
     if (!correo || !contraseña) {
@@ -30,15 +37,20 @@ export default function LoginForm() {
     try {
       const { access_token, usuario } = await login(correo, contraseña);
 
-      // 🔥 Guardar el token y usuario en AsyncStorage
+      // Guardar token y usuario
       await AsyncStorage.setItem("token", access_token);
       await AsyncStorage.setItem("usuario", JSON.stringify(usuario));
 
       console.log("Usuario logueado:", usuario);
       Alert.alert("Éxito", "Inicio de sesión correcto ✅");
 
-      // Redirigir a la HomeScreen dentro de (home)
-      router.replace("../../(home)/");
+      // Si se pasó la función onLoginSuccess, llamarla; si no, hacer router.replace como fallback
+     if (onLoginSuccess) {
+  onLoginSuccess();
+} else {
+ router.push("/home" as any);
+}
+
     } catch (error: any) {
       Alert.alert("Error", error.message || "Credenciales incorrectas");
     } finally {
@@ -60,13 +72,26 @@ export default function LoginForm() {
         autoCapitalize="none"
       />
 
-      <TextInput
-        placeholder="Contraseña"
-        style={styles.input}
-        secureTextEntry
-        value={contraseña}
-        onChangeText={setContraseña}
-      />
+      {/* Contenedor de la contraseña con el ojo */}
+      <View style={styles.passwordContainer}>
+        <TextInput
+          placeholder="Contraseña"
+          style={[styles.input, { flex: 1 }]}
+          secureTextEntry={!showPassword}
+          value={contraseña}
+          onChangeText={setContraseña}
+        />
+        <TouchableOpacity
+          onPress={() => setShowPassword(!showPassword)}
+          style={styles.eyeButton}
+        >
+          <Ionicons
+            name={showPassword ? "eye-off" : "eye"}
+            size={24}
+            color="#333"
+          />
+        </TouchableOpacity>
+      </View>
 
       <TouchableOpacity
         style={styles.button}
@@ -121,6 +146,15 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 15,
     fontSize: 16,
+  },
+  passwordContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
+    marginBottom: 15,
+  },
+  eyeButton: {
+    padding: 10,
   },
   button: {
     width: "100%",

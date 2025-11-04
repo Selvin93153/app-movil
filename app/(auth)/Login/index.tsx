@@ -1,12 +1,12 @@
+import { router } from "expo-router";
 import React from "react";
 import { View } from "react-native";
 import LoginForm from "./LoginForm";
-import { router } from "expo-router";
 
 export default function LoginScreen() {
   // Cuando el login sea exitoso, navega al Home
   const handleLoginSuccess = () => {
-    router.push("/home" as any);
+    router.replace("../../(home)/");
  // o la ruta que tengas para después del login
   };
 

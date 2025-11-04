@@ -62,7 +62,10 @@ export default function HomeScreen() {
 </TouchableOpacity>
 
 
-        <TouchableOpacity style={styles.card}>
+        <TouchableOpacity
+  style={styles.card}
+  onPress={() => router.push("/(home)/PrestamosEnUso")}
+>
           <Text style={styles.cardTitle}>🔧 Equipo Prestado</Text>
           <Text style={styles.cardDesc}>Revisa tus equipos en préstamo</Text>
         </TouchableOpacity>
