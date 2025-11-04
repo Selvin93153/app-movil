@@ -4,7 +4,7 @@
     "slug": "pnc-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/logosgaia.png",
     "scheme": "pncmobile",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,

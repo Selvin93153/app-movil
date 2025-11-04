@@ -102,7 +102,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#e0f2f1", // fondo suave
-    padding: 15,
+    paddingTop: 75,             // espacio superior
+    paddingHorizontal: 25,      // separación lateral
   },
   title: {
     fontSize: 24,

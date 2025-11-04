@@ -2,24 +2,24 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect, useState } from "react";
 import {
-    ActivityIndicator,
-    Alert,
-    FlatList,
-    Modal,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  ActivityIndicator,
+  Alert,
+  FlatList,
+  Modal,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import {
-    addReporte,
-    getReportes,
-    marcarReporteVisto,
-    updateReporte,
-    type Reporte,
-    type Usuario,
+  addReporte,
+  getReportes,
+  marcarReporteVisto,
+  updateReporte,
+  type Reporte,
+  type Usuario,
 } from "../../services/reportesService";
 
 export default function ReportesScreen() {
@@ -252,23 +252,23 @@ export default function ReportesScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 15, backgroundColor: "#e0f2f1" },
+  container: { flex: 1, paddingTop: 75, paddingHorizontal: 25, backgroundColor: "#e0f2f1" }, // ✨ margen superior y lateral
   center: { flex: 1, justifyContent: "center", alignItems: "center" },
-  headerRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10 },
+  headerRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 15 },
   title: { fontSize: 24, fontWeight: "bold", color: "#06765C" },
   botonNuevo: { backgroundColor: "#06765C", paddingHorizontal: 15, paddingVertical: 8, borderRadius: 8 },
   botonText: { color: "#fff", fontWeight: "bold" },
-  card: { backgroundColor: "#fff", padding: 15, borderRadius: 10, marginBottom: 10, elevation: 3 },
+  card: { backgroundColor: "#fff", padding: 15, borderRadius: 10, marginBottom: 15, elevation: 3 }, // ✨ margen inferior extra
   cardTitulo: { fontSize: 18, fontWeight: "bold", marginBottom: 5 },
   cardInfo: { fontSize: 14, color: "#333" },
   cardEstado: { fontWeight: "bold", marginTop: 5 },
   botonesRow: { flexDirection: "row", justifyContent: "flex-end", marginTop: 10 },
   boton: { backgroundColor: "#1976d2", paddingHorizontal: 15, paddingVertical: 8, borderRadius: 8, marginLeft: 10 },
   botonEditar: { backgroundColor: "#ff9800" },
-  modalBackground: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "rgba(0,0,0,0.5)" },
+  modalBackground: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "rgba(0,0,0,0.5)", padding: 10 },
   modalContainer: { width: "90%", backgroundColor: "#fff", borderRadius: 15, padding: 20 },
   modalTitulo: { fontSize: 20, fontWeight: "bold", marginBottom: 10 },
   modalDesc: { fontSize: 16, marginBottom: 10 },
-  modalInfo: { fontSize: 14, color: "gray" },
+  modalInfo: { fontSize: 14, color: "gray", marginBottom: 5 },
   input: { borderWidth: 1, borderColor: "#ccc", borderRadius: 8, padding: 10, marginBottom: 10 },
 });

@@ -1,7 +1,8 @@
+import { Ionicons } from "@expo/vector-icons"; // Para los íconos de ojo
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { Button, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { Button, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { changePassword, getUsuarioById } from "../../services/profileService";
 
 export default function PerfilScreen() {
@@ -15,6 +16,11 @@ export default function PerfilScreen() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+
+  // Estados para toggle de visibilidad
+  const [showCurrent, setShowCurrent] = useState(false);
+  const [showNew, setShowNew] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -101,27 +107,47 @@ export default function PerfilScreen() {
             {passwordError ? <Text style={styles.error}>{passwordError}</Text> : null}
             {successMessage ? <Text style={styles.success}>{successMessage}</Text> : null}
 
-            <TextInput
-              placeholder="Contraseña actual"
-              secureTextEntry
-              style={styles.input}
-              value={currentPassword}
-              onChangeText={setCurrentPassword}
-            />
-            <TextInput
-              placeholder="Nueva contraseña"
-              secureTextEntry
-              style={styles.input}
-              value={newPassword}
-              onChangeText={setNewPassword}
-            />
-            <TextInput
-              placeholder="Confirmar nueva contraseña"
-              secureTextEntry
-              style={styles.input}
-              value={confirmPassword}
-              onChangeText={setConfirmPassword}
-            />
+            {/* Contraseña actual */}
+            <View style={styles.passwordContainer}>
+              <TextInput
+                placeholder="Contraseña actual"
+                secureTextEntry={!showCurrent}
+                style={styles.input}
+                value={currentPassword}
+                onChangeText={setCurrentPassword}
+              />
+              <TouchableOpacity onPress={() => setShowCurrent(!showCurrent)} style={styles.eyeIcon}>
+                <Ionicons name={showCurrent ? "eye" : "eye-off"} size={20} color="#555" />
+              </TouchableOpacity>
+            </View>
+
+            {/* Nueva contraseña */}
+            <View style={styles.passwordContainer}>
+              <TextInput
+                placeholder="Nueva contraseña"
+                secureTextEntry={!showNew}
+                style={styles.input}
+                value={newPassword}
+                onChangeText={setNewPassword}
+              />
+              <TouchableOpacity onPress={() => setShowNew(!showNew)} style={styles.eyeIcon}>
+                <Ionicons name={showNew ? "eye" : "eye-off"} size={20} color="#555" />
+              </TouchableOpacity>
+            </View>
+
+            {/* Confirmar nueva contraseña */}
+            <View style={styles.passwordContainer}>
+              <TextInput
+                placeholder="Confirmar nueva contraseña"
+                secureTextEntry={!showConfirm}
+                style={styles.input}
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
+              />
+              <TouchableOpacity onPress={() => setShowConfirm(!showConfirm)} style={styles.eyeIcon}>
+                <Ionicons name={showConfirm ? "eye" : "eye-off"} size={20} color="#555" />
+              </TouchableOpacity>
+            </View>
 
             <Button title="Guardar cambios" onPress={handlePasswordChange} color="#4CAF50" />
           </View>
@@ -168,13 +194,22 @@ const styles = StyleSheet.create({
   label: { fontWeight: "bold", marginRight: 5, color: "#333" },
   info: { color: "#666" },
   form: { marginVertical: 15 },
+  passwordContainer: {
+    position: "relative",
+    marginBottom: 10,
+  },
   input: {
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 8,
     padding: 12,
-    marginBottom: 10,
+    paddingRight: 40, // espacio para el ícono
     backgroundColor: "#f9f9f9",
+  },
+  eyeIcon: {
+    position: "absolute",
+    right: 10,
+    top: 12,
   },
   error: { color: "red", marginBottom: 10, textAlign: "center" },
   success: { color: "green", marginBottom: 10, textAlign: "center" },

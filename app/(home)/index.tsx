@@ -3,6 +3,7 @@ import { useRouter } from "expo-router";
 import React from "react";
 import {
   Alert,
+  SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -23,14 +24,17 @@ export default function HomeScreen() {
           style: "destructive",
           onPress: async () => {
             try {
-              //  Eliminar token guardado
-              await AsyncStorage.removeItem("token");
+              // Eliminar token y usuario guardados
+              await AsyncStorage.multiRemove(["token", "usuario"]);
 
               // Redirigir al login
               router.replace("/(auth)/Login");
             } catch (error) {
               console.error("Error al cerrar sesión:", error);
-              Alert.alert("Error", "No se pudo cerrar la sesión correctamente.");
+              Alert.alert(
+                "Error",
+                "No se pudo cerrar la sesión correctamente."
+              );
             }
           },
         },
@@ -39,64 +43,70 @@ export default function HomeScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      {/* Botón de cerrar sesión */}
-      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-        <Text style={styles.logoutText}>⟵ Salir</Text>
-      </TouchableOpacity>
-
-      <Text style={styles.title}>🏠 Bienvenido</Text>
-
-      <View style={styles.cardContainer}>
-       <TouchableOpacity style={styles.card} onPress={() => router.push("/(home)/Perfil")}>
-  <Text style={styles.cardTitle}>👤 Perfil</Text>
-  <Text style={styles.cardDesc}>Ver y editar tus datos personales</Text>
-</TouchableOpacity>
-
-<TouchableOpacity
-  style={styles.card}
-  onPress={() => router.push("/(home)/AsignadosPropio")}
->
-  <Text style={styles.cardTitle}>📦 Equipos Cargados</Text>
-  <Text style={styles.cardDesc}>Consulta los equipos registrados</Text>
-</TouchableOpacity>
-
-        <TouchableOpacity
-  style={styles.card}
-  onPress={() => router.push("/(home)/PrestamosEnUso")}
->
-          <Text style={styles.cardTitle}>🔧 Equipo Prestado</Text>
-          <Text style={styles.cardDesc}>Revisa tus equipos en préstamo</Text>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#f2f4f8" }}>
+      <View style={styles.container}>
+        {/* Botón de cerrar sesión */}
+        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+          <Text style={styles.logoutText}>Cerrar Sesion</Text>
         </TouchableOpacity>
 
+        <Text style={styles.title}>🏠 Bienvenido</Text>
 
-                <TouchableOpacity
-  style={styles.card}
-  onPress={() => router.push("/(home)/Reportes")}
->
-          <Text style={styles.cardTitle}> Reportes</Text>
-          <Text style={styles.cardDesc}>Publica algun error o percanse </Text>
-        </TouchableOpacity>
+        <View style={styles.cardContainer}>
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() => router.push("/(home)/Perfil")}
+          >
+            <Text style={styles.cardTitle}>👤 Perfil</Text>
+            <Text style={styles.cardDesc}>Ver y editar tus datos personales</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() => router.push("/(home)/AsignadosPropio")}
+          >
+            <Text style={styles.cardTitle}>📦 Equipos Cargados</Text>
+            <Text style={styles.cardDesc}>Consulta los equipos registrados</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() => router.push("/(home)/PrestamosEnUso")}
+          >
+            <Text style={styles.cardTitle}>🔧 Equipo Prestado</Text>
+            <Text style={styles.cardDesc}>Revisa tus equipos en préstamo</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() => router.push("/(home)/Reportes")}
+          >
+            <Text style={styles.cardTitle}>📋 Reportes</Text>
+            <Text style={styles.cardDesc}>
+              Publica algún error o percance
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f2f4f8",
     paddingHorizontal: 20,
     paddingTop: 60,
   },
   logoutButton: {
     position: "absolute",
-    top: 50,
-    left: 20,
+    top: 75,
+    left: 230,
     backgroundColor: "#ff4d4d",
     paddingVertical: 8,
     paddingHorizontal: 15,
     borderRadius: 8,
+    zIndex: 10,
   },
   logoutText: {
     color: "#fff",
@@ -104,10 +114,11 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   title: {
-    fontSize: 22,
+    fontSize: 50,
     fontWeight: "bold",
     textAlign: "center",
-    marginBottom: 25,
+    marginTop: 50, 
+    marginBottom: 0,
   },
   cardContainer: {
     flex: 1,

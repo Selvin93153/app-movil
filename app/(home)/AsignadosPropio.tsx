@@ -89,21 +89,27 @@ export default function AsignadosPropioScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    backgroundColor: "#f0f3f7",
+    flexGrow: 1,
+    paddingTop: 75, // triple margen superior
+    paddingHorizontal: 30, // margen lateral
+    paddingBottom: 20,
+    backgroundColor: "#e0f2f1", // color de fondo general
   },
   centerContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#f0f3f7",
-    marginTop: 50,
+    backgroundColor: "#e0f2f1", // mismo fondo general
+    marginTop: 75, // triple margen superior
+    paddingHorizontal: 20,
   },
   centerText: {
     textAlign: "center",
-    marginTop: 50,
+    marginTop: 75, // triple margen superior
     fontSize: 16,
     color: "#777",
+    paddingHorizontal: 20,
+    backgroundColor: "#e0f2f1", // fondo general
   },
   header: {
     fontSize: 24,
