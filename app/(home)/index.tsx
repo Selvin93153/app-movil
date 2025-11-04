@@ -53,11 +53,14 @@ export default function HomeScreen() {
   <Text style={styles.cardDesc}>Ver y editar tus datos personales</Text>
 </TouchableOpacity>
 
+<TouchableOpacity
+  style={styles.card}
+  onPress={() => router.push("/(home)/AsignadosPropio")}
+>
+  <Text style={styles.cardTitle}>📦 Equipos Cargados</Text>
+  <Text style={styles.cardDesc}>Consulta los equipos registrados</Text>
+</TouchableOpacity>
 
-        <TouchableOpacity style={styles.card}>
-          <Text style={styles.cardTitle}>📦 Equipos Cargados</Text>
-          <Text style={styles.cardDesc}>Consulta los equipos registrados</Text>
-        </TouchableOpacity>
 
         <TouchableOpacity style={styles.card}>
           <Text style={styles.cardTitle}>🔧 Equipo Prestado</Text>
